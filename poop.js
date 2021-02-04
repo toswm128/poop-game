@@ -2,13 +2,16 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
 const img = new Image();
-img.src = "/혁준홍.jpg"
+img.src = "/혁준홍.png"
+
+const poopImg = new Image();
+poopImg.src = "/poop.png"
 
 const maxW = canvas.width;
 const maxH = canvas.height;
 
 let x=0;
-let y= maxH-101;
+let y= maxH-183;
 
 let poopPoint;
 let i=0;
@@ -23,7 +26,7 @@ function poop(){
 
 function poopDraw(){
     ctx.beginPath();
-    ctx.arc(poopPoint, 30+i, 30, 0, Math.PI * 2);
+    ctx.drawImage(poopImg, poopPoint-25,i-126, 100,125);
     ctx.stroke();
 }
 
@@ -37,11 +40,11 @@ function mouse(e){
 function draw(){
     ctx.clearRect(0,0,maxW,maxH);
     ctx.beginPath();
-    ctx.drawImage(img, x,y, 50,100);
+    ctx.drawImage(img, x,y, 75,182);
     ctx.stroke();
     poopDraw();
-    if(i<maxH){
-        i=i+2;
+    if(i<maxH+125){
+        i=i+5;
     }else{
         poop();
     }
