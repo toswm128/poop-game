@@ -70,12 +70,17 @@ function loadImg(){
     canvas.addEventListener("mousemove",mouse)
     setInterval(draw,1);
     setInterval(touchRead,1);
-    poop();
-    
 }
 
 function init(){
     window.onload = loadImg();
+    img.onload = function(){
+        console.log("hi!");
+    }
+    poopImg.onload = function(){
+        console.log("hello!");
+        poop();
+    }
 }
 
 init();
