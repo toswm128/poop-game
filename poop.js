@@ -46,13 +46,6 @@ function poopDraw(){
     ctx.stroke();
 }
 
-function mouse(e){
-    const mouseX = e.offsetX; 
-    const mouseY = e.offsetY; 
-    x = mouseX-37.5;
-    
-}
-
 function draw(){
     ctx.clearRect(0,0,maxW,maxH);
     ctx.beginPath();
@@ -64,6 +57,13 @@ function draw(){
     }else{
         poop();
     }
+}
+
+function mouse(e){
+    const mouseX = e.offsetX; 
+    const mouseY = e.offsetY; 
+    x = mouseX-37.5;
+    
 }
 
 function loadImg(){
