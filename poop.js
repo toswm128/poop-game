@@ -73,13 +73,13 @@ function loadImg(){
 }
 
 function init(){
-    window.onload = loadImg();
     img.onload = function(){
         console.log("hi!");
     }
     poopImg.onload = function(){
         console.log("hello!");
         poop();
+        loadImg()
     }
 }
 
