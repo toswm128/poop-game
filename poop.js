@@ -4,10 +4,10 @@ const score = document.querySelector("h1");
 const body = document.querySelector("body");
 
 const img = new Image();
-img.src = "/혁준홍.png"
+img.src = "player.png"
 
 const poopImg = new Image();
-poopImg.src = "/poop.png"
+poopImg.src = "poop.png"
 
 const maxW = canvas.width;
 const maxH = canvas.height;
