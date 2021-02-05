@@ -12,48 +12,82 @@ poopImg.src = "/poop.png"
 const maxW = canvas.width;
 const maxH = canvas.height;
 
+let play;
+let read;
+
 let x=0;
 let y= maxH-183;
 
-let poopPoint;
+let poopPoint=[];
 let i=0;
+let poops;
+let j;
 
 let point = -1;
+let speed = 20;
+
+let fps = 10;
 
 function touchRead(){
-    if(poopPoint>x&&poopPoint<x+75){
+    for(j=0;j<=poops;j++){
         if(i>y){
-            console.log("게임오버");
-            const over = document.createElement("h1");
-            body.appendChild(over);
-            over.innerText = `게임 오버 당신의 점수는 ${point}입니다.`
+            if(poopPoint[j]>x-75&&poopPoint[j]<x+37.5){
+                console.log(j);
+                console.log("똥",poopPoint[j],"x",x);
+                console.log("i",i,"y",y);
+                console.log("게임오버");
+                const over = document.createElement("h1");
+                body.appendChild(over);
+                over.innerText = `게임 오버 당신의 점수는 ${point}입니다.`
+                fps = 99999999;
+                clearInterval(read);
+                clearInterval(play);
+            }
         }
     }
 }
 
 function poop(){
     i=0;
-    poopPoint = Math.floor(Math.random()*maxW);
-    console.log(poopPoint);
-    ctx.strokeStyle="red"
+    poops = Math.floor(Math.random()*3);
+    for(j=0;j<=poops;j++){
+       poopPoint[j] = Math.floor(Math.random()*maxW)    ;
+       console.log(poopPoint[j],"x",j);
+    }
+    console.log(poops,"poops")
     point++;
+    speed++;
     score.innerText = point;
 }
 
-function poopDraw(){
+function poopDraw(j){
     ctx.beginPath();
-    ctx.drawImage(poopImg, poopPoint-25,i-126, 100,125);
+    ctx.drawImage(poopImg, poopPoint[j]-25,i-126, 100,125);
     ctx.stroke();
 }
 
 function draw(){
     ctx.clearRect(0,0,maxW,maxH);
     ctx.beginPath();
-    ctx.drawImage(img, x,y, 75,182);
+    ctx.drawImage(img, x-37.5,y, 75,182);
     ctx.stroke();
-    poopDraw();
+    if(poops === 0){
+        poopDraw(0);
+    }else if(poops === 1){
+        poopDraw(0);
+        poopDraw(1);
+    }else if(poops === 2){
+        poopDraw(0);
+        poopDraw(1);
+        poopDraw(2);
+    }else if(poops === 3){
+        poopDraw(0);
+        poopDraw(1);
+        poopDraw(2);
+        poopDraw(3);
+    }
     if(i<maxH+125){
-        i=i+3;
+        i=i+speed/15;
     }else{
         poop();
     }
@@ -62,25 +96,26 @@ function draw(){
 function mouse(e){
     const mouseX = e.offsetX; 
     const mouseY = e.offsetY; 
-    x = mouseX-37.5;
+    x = mouseX;
     
+}
+
+function mouseClick(e){
+    const mouseX = e.offsetX; 
+    const mouseY = e.offsetY; 
+    console.log(mouseX,mouseY)
 }
 
 function loadImg(){
     canvas.addEventListener("mousemove",mouse)
-    setInterval(draw,1);
-    setInterval(touchRead,1);
+    canvas.addEventListener("click",mouseClick)
+    play = setInterval(draw,1);
+    read = setInterval(touchRead,1);
+    poop();
 }
 
 function init(){
-    img.onload = function(){
-        console.log("hi!");
-    }
-    poopImg.onload = function(){
-        console.log("hello!");
-        poop();
-        loadImg()
-    }
+    score.addEventListener("click",loadImg);
 }
 
 init();
